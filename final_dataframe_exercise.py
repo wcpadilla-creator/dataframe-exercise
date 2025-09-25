@@ -1,0 +1,634 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "private_outputs": true,
+      "provenance": [],
+      "authorship_tag": "ABX9TyOUGTfWyvoQSNxV4PTEIA8E",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/wcpadilla-creator/dataframe-exercise/blob/main/final_dataframe_exercise.py\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "uLj6nTdAnEhj"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Sample sales dataset (20 rows)\n",
+        "data = {\n",
+        "    \"OrderID\": range(1001, 1021),\n",
+        "    \"Product\": [\n",
+        "        \"Laptop\", \"Mouse\", \"Keyboard\", \"Monitor\", \"Laptop\",\n",
+        "        \"Headphones\", \"Mouse\", \"Chair\", \"Desk\", \"Laptop\",\n",
+        "        \"Printer\", \"Keyboard\", \"Monitor\", \"Mouse\", \"Laptop\",\n",
+        "        \"Headphones\", \"Desk\", \"Monitor\", \"Printer\", \"Chair\"\n",
+        "    ],\n",
+        "    \"Category\": [\n",
+        "        \"Electronics\", \"Accessories\", \"Accessories\", \"Electronics\", \"Electronics\",\n",
+        "        \"Accessories\", \"Accessories\", \"Furniture\", \"Furniture\", \"Electronics\",\n",
+        "        \"Electronics\", \"Accessories\", \"Electronics\", \"Accessories\", \"Electronics\",\n",
+        "        \"Accessories\", \"Furniture\", \"Electronics\", \"Electronics\", \"Furniture\"\n",
+        "    ],\n",
+        "    \"Quantity\": [2, 5, 3, 4, 1, 6, 10, 2, 1, 3, 2, 4, 2, 7, 5, 3, 2, 4, 1, 6],\n",
+        "    \"Price\": [800, 20, 50, 200, 850, 40, 25, 150, 300, 900, 120, 55, 250, 20, 750, 35, 280, 220, 110, 180],\n",
+        "    \"Customer\": [\n",
+        "        \"Alice\", \"Bob\", \"Charlie\", \"Diana\", \"Ethan\",\n",
+        "        \"Fiona\", \"George\", \"Hannah\", \"Ian\", \"Jane\",\n",
+        "        \"Kyle\", \"Laura\", \"Mike\", \"Nina\", \"Oscar\",\n",
+        "        \"Paul\", \"Queen\", \"Robert\", \"Sarah\", \"Tom\"\n",
+        "    ],\n",
+        "    \"Region\": [\n",
+        "        \"North\", \"South\", \"East\", \"West\", \"North\",\n",
+        "        \"South\", \"East\", \"West\", \"North\", \"South\",\n",
+        "        \"East\", \"West\", \"North\", \"South\", \"East\",\n",
+        "        \"West\", \"North\", \"South\", \"East\", \"West\"\n",
+        "    ]\n",
+        "}\n",
+        "\n",
+        "# Create DataFrame\n",
+        "df = pd.DataFrame(data)\n",
+        "\n",
+        "# Compute Total column\n",
+        "df[\"Total\"] = df[\"Quantity\"] * df[\"Price\"]\n",
+        "\n",
+        "# Print the first 5 rows\n",
+        "print(df.head())"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 1. Creating a Datafame - Print the number of rows and columns\n",
+        "print(\"Shape:\", df.shape)"
+      ],
+      "metadata": {
+        "id": "bmgNQAPiR-bo"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 1. Creating a Datafame - Show the column names\n",
+        "print(\"Columns:\", df.columns)"
+      ],
+      "metadata": {
+        "id": "SHCa5kwVTFM0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 2. Adding a Column - Add Discount column (10% if Quantity >= 5 else 0)\n",
+        "df[\"Discount\"] = 0.10 * df[\"Total\"].where(df[\"Quantity\"] >= 5, 0)\n",
+        "\n",
+        "# this will print the first 5 rows with the new column\n",
+        "print(df.head())"
+      ],
+      "metadata": {
+        "id": "1v-8ixAYTg82"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 2. Adding a Column - Add FinalTotal column (Total - Discount)\n",
+        "df[\"FinalTotal\"] = df[\"Total\"] - df[\"Discount\"]\n",
+        "\n",
+        "# Show selected columns\n",
+        "print(df[[\"OrderID\", \"Product\", \"Total\", \"Discount\", \"FinalTotal\"]].head())"
+      ],
+      "metadata": {
+        "id": "OnNoQSeiUh8n"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 2. Adding a Column - Print only the OrderID, Product, Total, Discount, and FinalTotal columns\n",
+        "print(df[[\"OrderID\", \"Product\", \"Total\", \"Discount\", \"FinalTotal\"]])"
+      ],
+      "metadata": {
+        "id": "-EGH1S85U2Qu"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 3. Adding a Row - Add a new sales record\n",
+        "new_row = {\n",
+        "    \"OrderID\": 1021,\n",
+        "    \"Product\": \"Tablet\",\n",
+        "    \"Category\": \"Electronics\",\n",
+        "    \"Quantity\": 2,\n",
+        "    \"Price\": 450,\n",
+        "    \"Customer\": \"Victor\",\n",
+        "    \"Region\": \"East\"\n",
+        "}\n",
+        "\n",
+        "# Append to DataFrame using pd.concat\n",
+        "df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)\n",
+        "\n",
+        "# Recalculate Total, Discount, and FinalTotal for the new row\n",
+        "# This is needed because we added a new row after the initial calculations\n",
+        "df.loc[df.index[-1], \"Total\"] = df.loc[df.index[-1], \"Quantity\"] * df.loc[df.index[-1], \"Price\"]\n",
+        "df.loc[df.index[-1], \"Discount\"] = 0.10 * df.loc[df.index[-1], \"Total\"] if df.loc[df.index[-1], \"Quantity\"] >= 5 else 0\n",
+        "df.loc[df.index[-1], \"FinalTotal\"] = df.loc[df.index[-1], \"Total\"] - df.loc[df.index[-1], \"Discount\"]\n",
+        "\n",
+        "# Show last few rows to verify the addition\n",
+        "print(df.tail())"
+      ],
+      "metadata": {
+        "id": "W5QcA8B4W5B6"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 3. Adding a Row - Recalculate the \"Total\" column for the new row\n",
+        "\n",
+        "df.loc[df.index[-1], \"Total\"] = df.loc[df.index[-1], \"Quantity\"] * df.loc[df.index[-1], \"Price\"]\n",
+        "\n",
+        "# Display the last row to show the recalculated Total\n",
+        "print(df.tail(1))"
+      ],
+      "metadata": {
+        "id": "DZ5kgy_2az1J"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 3. Adding a Row - Verify the new row is added by printing the last 3 rows\n",
+        "print(df.tail(3))"
+      ],
+      "metadata": {
+        "id": "bX0qZou6bO-d"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "2eb2f532"
+      },
+      "source": [
+        "# 4. Modifying Column Values - Change the \"Price\" of all \"Mouse\" products to 30\n",
+        "df.loc[df[\"Product\"] == \"Mouse\", \"Price\"] = 30\n",
+        "\n",
+        "# Recalculate Total, Discount, and FinalTotal for affected rows (Mouse products)\n",
+        "mouse_indices = df[df[\"Product\"] == \"Mouse\"].index\n",
+        "df.loc[mouse_indices, \"Total\"] = df.loc[mouse_indices, \"Quantity\"] * df.loc[mouse_indices, \"Price\"]\n",
+        "df.loc[mouse_indices, \"Discount\"] = 0.10 * df.loc[mouse_indices, \"Total\"].where(df.loc[mouse_indices, \"Quantity\"] >= 5, 0)\n",
+        "df.loc[mouse_indices, \"FinalTotal\"] = df.loc[mouse_indices, \"Total\"] - df.loc[mouse_indices, \"Discount\"]\n",
+        "\n",
+        "# Show only Mouse rows to verify the change\n",
+        "print(df[df[\"Product\"] == \"Mouse\"])"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 4. Modifying Column Values - Recalculate \"Total\" for the affected rows.\n",
+        "\n",
+        "# The affected rows are those where the product is \"Mouse\"\n",
+        "mouse_indices = df[df[\"Product\"] == \"Mouse\"].index\n",
+        "\n",
+        "# Recalculate Total for affected rows\n",
+        "df.loc[mouse_indices, \"Total\"] = df.loc[mouse_indices, \"Quantity\"] * df.loc[mouse_indices, \"Price\"]\n",
+        "\n",
+        "# Recalculate Discount and FinalTotal for affected rows (as they depend on Total)\n",
+        "df.loc[mouse_indices, \"Discount\"] = 0.10 * df.loc[mouse_indices, \"Total\"].where(df.loc[mouse_indices, \"Quantity\"] >= 5, 0)\n",
+        "df.loc[mouse_indices, \"FinalTotal\"] = df.loc[mouse_indices, \"Total\"] - df.loc[mouse_indices, \"Discount\"]\n",
+        "\n",
+        "# Show only Mouse rows to verify the changes\n",
+        "print(df[df[\"Product\"] == \"Mouse\"])"
+      ],
+      "metadata": {
+        "id": "5Cl69zVQjGrK"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 4. Modifying Column Values - Print only the rows where \"Product\"=\"Mouse\" to confirm the update.\n",
+        "print(df[df[\"Product\"] == \"Mouse\"])"
+      ],
+      "metadata": {
+        "id": "o7UBLd8skKWT"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 5. Deleting a Column - Delete the \"Discount\" column.\n",
+        "df = df.drop(columns=[\"Discount\"])\n",
+        "\n",
+        "# Show updated DataFrame head\n",
+        "print(df.head())"
+      ],
+      "metadata": {
+        "id": "YfiTzNNNd_y0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "4a213cbd"
+      },
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Sample sales dataset (20 rows)\n",
+        "data = {\n",
+        "    \"OrderID\": range(1001, 1021),\n",
+        "    \"Product\": [\n",
+        "        \"Laptop\", \"Mouse\", \"Keyboard\", \"Monitor\", \"Laptop\",\n",
+        "        \"Headphones\", \"Mouse\", \"Chair\", \"Desk\", \"Laptop\",\n",
+        "        \"Printer\", \"Keyboard\", \"Monitor\", \"Mouse\", \"Laptop\",\n",
+        "        \"Headphones\", \"Desk\", \"Monitor\", \"Printer\", \"Chair\"\n",
+        "    ],\n",
+        "    \"Category\": [\n",
+        "        \"Electronics\", \"Accessories\", \"Accessories\", \"Electronics\", \"Electronics\",\n",
+        "        \"Accessories\", \"Accessories\", \"Furniture\", \"Furniture\", \"Electronics\",\n",
+        "        \"Electronics\", \"Accessories\", \"Electronics\", \"Accessories\", \"Electronics\",\n",
+        "        \"Accessories\", \"Furniture\", \"Electronics\", \"Electronics\", \"Furniture\"\n",
+        "    ],\n",
+        "    \"Quantity\": [2, 5, 3, 4, 1, 6, 10, 2, 1, 3, 2, 4, 2, 7, 5, 3, 2, 4, 1, 6],\n",
+        "    \"Price\": [800, 20, 50, 200, 850, 40, 25, 150, 300, 900, 120, 55, 250, 20, 750, 35, 280, 220, 110, 180],\n",
+        "    \"Customer\": [\n",
+        "        \"Alice\", \"Bob\", \"Charlie\", \"Diana\", \"Ethan\",\n",
+        "        \"Fiona\", \"George\", \"Hannah\", \"Ian\", \"Jane\",\n",
+        "        \"Kyle\", \"Laura\", \"Mike\", \"Nina\", \"Oscar\",\n",
+        "        \"Paul\", \"Queen\", \"Robert\", \"Sarah\", \"Tom\"\n",
+        "    ],\n",
+        "    \"Region\": [\n",
+        "        \"North\", \"South\", \"East\", \"West\", \"North\",\n",
+        "        \"South\", \"East\", \"West\", \"North\", \"South\",\n",
+        "        \"East\", \"West\", \"North\", \"South\", \"East\",\n",
+        "        \"West\", \"North\", \"South\", \"East\", \"West\"\n",
+        "    ]\n",
+        "}\n",
+        "\n",
+        "# Create DataFrame\n",
+        "df = pd.DataFrame(data)\n",
+        "\n",
+        "# Compute Total column\n",
+        "df[\"Total\"] = df[\"Quantity\"] * df[\"Price\"]\n",
+        "\n",
+        "# Add Discount column (10% if Quantity >= 5 else 0)\n",
+        "df[\"Discount\"] = 0.10 * df[\"Total\"].where(df[\"Quantity\"] >= 5, 0)\n",
+        "\n",
+        "# Add FinalTotal column (Total - Discount)\n",
+        "df[\"FinalTotal\"] = df[\"Total\"] - df[\"Discount\"]\n",
+        "\n",
+        "# Print the first 5 rows\n",
+        "print(df.head())"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "40e7a981"
+      },
+      "source": [
+        "# 5. Deleting a Column - Delete the \"Discount\" column.\n",
+        "df = df.drop(columns=[\"Discount\"])\n",
+        "\n",
+        "# Show updated DataFrame head\n",
+        "print(df.head())"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 5. Deleting a Column - Delete the \"FinalTotal\" Column\n",
+        "df = df.drop(columns=[\"FinalTotal\"])\n",
+        "\n",
+        "# Show updated DataFrame head\n",
+        "print(df.head())"
+      ],
+      "metadata": {
+        "id": "8aYC1k14etnZ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "asfa"
+      ],
+      "metadata": {
+        "id": "AKF-hk13fDyZ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "14dd8259"
+      },
+      "source": [
+        "# 5. Deleting a Column - Print the updated DataFrame with only the remaining columns\n",
+        "print(df)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 6. Deleting a Row - Delete the order with OrderID = 1010.\n",
+        "df = df.drop(df[df[\"OrderID\"] == 1010].index)\n",
+        "\n",
+        "# Show updated DataFrame head\n",
+        "print(df)"
+      ],
+      "metadata": {
+        "id": "8DQD68onfXG8"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 6. Deleting a Row - Delete the first row of the DataFrame\n",
+        "df = df.drop(df.index[0])\n",
+        "\n",
+        "# Show updated DataFrame head\n",
+        "print(df.head())"
+      ],
+      "metadata": {
+        "id": "sS5ciEkLgHT3"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 6. Deleting a Row - Print the new DataFrame Shape\n",
+        "print(\"New shape:\", df.shape)"
+      ],
+      "metadata": {
+        "id": "M4zHgR-cgoPk"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 7. Searching with Conditions - Find all rows where \"Category\"=\"Electronics\" AND \"Quantity\">=3.\n",
+        "electronics_high_quantity = df[(df[\"Category\"] == \"Electronics\") & (df[\"Quantity\"] >= 3)]\n",
+        "print(electronics_high_quantity)"
+      ],
+      "metadata": {
+        "id": "pAJ4tkKuovUF"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 7. Searching with Conditions - Find all rows where \"Price\">500.\n",
+        "high_price_products = df[df[\"Price\"] > 500]\n",
+        "print(high_price_products)"
+      ],
+      "metadata": {
+        "id": "JJTYJC2hpLPp"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 7. Searching with Conditions - Count how many orders came from the \"North\" region.\n",
+        "north_orders_count = df[df[\"Region\"] == \"North\"].shape[0]\n",
+        "print(\"The Number of orders from NORTH region:\", north_orders_count)"
+      ],
+      "metadata": {
+        "id": "EMHbEs46pdkD"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 8. Filtering Specific Values - Display all sales from the \"West\" region\n",
+        "west_sales = df[df[\"Region\"] == \"West\"]\n",
+        "print(west_sales)"
+      ],
+      "metadata": {
+        "id": "-9j45XCQp2ln"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 8. Filtering Specific Values - Display all sales made by customer \"Alice\"\n",
+        "alice_sales = df[df[\"Customer\"] == \"Alice\"]\n",
+        "print(alice_sales)\n",
+        "\n",
+        "if alice_sales:= 0:\n",
+        "    print(\"NO SALES MADE by Alice.\")\n",
+        "else:\n",
+        "    print(alice_sales)\n"
+      ],
+      "metadata": {
+        "id": "nWAj2xYUqJWa"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 8. Filtering Specific Values - Display all sales where \"Product\" IN [\"Laptop\", \"Printer\"].\n",
+        "subset_sales = df[df[\"Product\"].isin([\"Laptop\", \"Printer\"])]\n",
+        "print(subset_sales)"
+      ],
+      "metadata": {
+        "id": "ZFDgAeZ_qvBt"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 9.1 Updating Values Based on Condition - Display of Furniture items currently\n",
+        "\n",
+        "# Ensure 'Price' and 'Total' columns are of a float type before calculation\n",
+        "df[\"Price\"] = df[\"Price\"].astype(float)\n",
+        "df[\"Total\"] = df[\"Total\"].astype(float)\n",
+        "\n",
+        "furniture_indices = df[df[\"Category\"] == \"Furniture\"].index\n",
+        "df.loc[furniture_indices, \"Price\"] = df.loc[furniture_indices, \"Price\"] * 1.10\n",
+        "\n",
+        "# Recalculate Total for affected rows (Furniture products)\n",
+        "df.loc[furniture_indices, \"Total\"] = df.loc[furniture_indices, \"Quantity\"] * df.loc[furniture_indices, \"Price\"]\n",
+        "\n",
+        "# Show only Furniture rows to verify the change\n",
+        "print(df[df[\"Category\"] == \"Furniture\"])"
+      ],
+      "metadata": {
+        "id": "dAmLUtsSq7X5"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 9. Updating Values Based on Condition - Increase \"Price\" of all \"Furniture\" products by 10%.\n",
+        "\n",
+        "# Ensure 'Price' and 'Total' columns are of a float type before calculation\n",
+        "df[\"Price\"] = df[\"Price\"].astype(float)\n",
+        "df[\"Total\"] = df[\"Total\"].astype(float)\n",
+        "\n",
+        "furniture_indices = df[df[\"Category\"] == \"Furniture\"].index\n",
+        "df.loc[furniture_indices, \"Price\"] = df.loc[furniture_indices, \"Price\"] * 1.10\n",
+        "\n",
+        "# Recalculate Total for affected rows (Furniture products)\n",
+        "df.loc[furniture_indices, \"Total\"] = df.loc[furniture_indices, \"Quantity\"] * df.loc[furniture_indices, \"Price\"]\n",
+        "\n",
+        "# Show only Furniture rows to verify the change\n",
+        "print(df[df[\"Category\"] == \"Furniture\"])"
+      ],
+      "metadata": {
+        "id": "VzjZgr-cr8LU"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 9. Updating Values Based on Condition - Recalculate the \"Total\" for those updated rows\n",
+        "\n",
+        "# The affected rows are those where the category is \"Furniture\"\n",
+        "furniture_indices = df[df[\"Category\"] == \"Furniture\"].index\n",
+        "\n",
+        "# Recalculate Total for affected rows\n",
+        "df.loc[furniture_indices, \"Total\"] = df.loc[furniture_indices, \"Quantity\"] * df.loc[furniture_indices, \"Price\"]\n",
+        "\n",
+        "# Show only Furniture rows to verify the change\n",
+        "print(df[df[\"Category\"] == \"Furniture\"])"
+      ],
+      "metadata": {
+        "id": "dABqBHEYsZmf"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 9. Updating Values Based on Condition - Show only the updated \"Furniture\" rows to confirm changes.\n",
+        "print(df[df[\"Category\"] == \"Furniture\"])"
+      ],
+      "metadata": {
+        "id": "zEn8W3jMstqI"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 10. Sorting the DataFrame - Sort the DataFrame by \"Total\" in descending order.\n",
+        "df_sorted = df.sort_values(by=\"Total\", ascending=False)\n",
+        "print(df_sorted)"
+      ],
+      "metadata": {
+        "id": "-AvltfpwtPYb"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 10. Sorting the DataFrame - Display the top 5 sales orders.\n",
+        "df_sorted = df.sort_values(by=\"Total\", ascending=False)\n",
+        "print(df_sorted.head(5))"
+      ],
+      "metadata": {
+        "id": "Ipt5VH9tt_gz"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 10. Sorting the DataFrame - Sort the DataFrame by \"Region\" and then by \"Customer\" (multi-level sort).\n",
+        "df_multi_sorted = df.sort_values(by=[\"Region\", \"Customer\"])\n",
+        "print(df_multi_sorted)"
+      ],
+      "metadata": {
+        "id": "7bW3dYekuRRi"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
